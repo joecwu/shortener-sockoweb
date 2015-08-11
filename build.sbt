@@ -10,7 +10,7 @@ resolvers += "Typesafe Repository" at "http://repo.typesafe.com/typesafe/release
 
 libraryDependencies += "org.scalaz" %% "scalaz-core" % "7.1.3"
 
-libraryDependencies += "com.joecwu" %% "shortener" % "0.1.0"
+libraryDependencies += "com.joecwu" %% "shortener" % "0.2.0"
 
 libraryDependencies += "org.mashupbots.socko" %% "socko-webserver" % "0.6.0"
 
