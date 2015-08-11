@@ -33,7 +33,12 @@ object ShortenerServer extends App with Logger {
           implicit val traceInfo = TracerInfo(httpRequest.request.headers.get("Tracer-Id").getOrElse(java.util.UUID.randomUUID.toString))
           taller(shorter) match {
             case Good(url) => httpRequest.response.write(OK, url)
-            case Bad(ex) => ex.writeLog(); httpRequest.response.write(BAD_REQUEST)
+            case Bad(ex) => {
+              ex match {
+                case ShorterNotInDBException(_,_) => httpRequest.response.write(NOT_FOUND)
+                case _ => ex.writeLog(); httpRequest.response.write(BAD_REQUEST)
+              }
+            }
           }
         }
         case _ => httpRequest.response.write(NOT_FOUND)
